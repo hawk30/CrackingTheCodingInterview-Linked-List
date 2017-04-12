@@ -64,4 +64,21 @@ public class LinkedFunctions {
         return head;
     }
 
+    int findKthToLastElementLinkedList(Node head, int k){
+        if(head==null)
+            return -1;
+        Node ptr1=head, ptr2=head;
+        int count=1;
+        while(ptr1!=null && ptr1.next!=null && count<k){
+            count++;
+            ptr1=ptr1.next;
+        }
+        while(ptr1.next!=null){
+            ptr1=ptr1.next;
+            ptr2=ptr2.next;
+        }
+        return ptr2.data;
+
+    }
+
 }
