@@ -14,7 +14,8 @@ public class Main {
         System.out.println("...........................................................");
         //lf.printLinkedList(lf.removeduplicatesFromUnsortedLinkedList(llist.head));
         //lf.printLinkedList(lf.removingduplicatesFromLinkedListInPlace(llist.head));
-        System.out.println(lf.findKthToLastElementLinkedList(llist.head,2));
+        //System.out.println(lf.findKthToLastElementLinkedList(llist.head,2));
+        lf.printLinkedList(lf.deleteElementFromMiddleOfLinkedList(llist.head));
 
     }
 }

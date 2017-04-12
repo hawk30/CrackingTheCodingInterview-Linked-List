@@ -81,4 +81,18 @@ public class LinkedFunctions {
 
     }
 
+    Node deleteElementFromMiddleOfLinkedList(Node head){
+        if(head==null)
+            return head;
+        Node ptr1=head,ptr2=head, prevNode=null;
+        while ( ptr1!=null && ptr1.next!=null){
+            ptr1=ptr1.next.next;
+            prevNode=ptr2;
+            ptr2=ptr2.next;
+        }
+        prevNode.next=ptr2.next;
+        return head;
+
+    }
+
 }
