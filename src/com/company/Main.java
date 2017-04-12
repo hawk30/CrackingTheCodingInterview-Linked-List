@@ -12,6 +12,7 @@ public class Main {
         llist.push(1);
         lf.printLinkedList(llist.head);
         System.out.println("...........................................................");
-        lf.printLinkedList(lf.removeduplicatesFromUnsortedLinkedList(llist.head));
+        //lf.printLinkedList(lf.removeduplicatesFromUnsortedLinkedList(llist.head));
+        lf.printLinkedList(lf.removingduplicatesFromLinkedListInPlace(llist.head));
     }
 }
