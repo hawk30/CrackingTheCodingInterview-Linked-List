@@ -11,5 +11,7 @@ public class Main {
         llist.push(2);
         llist.push(1);
         lf.printLinkedList(llist.head);
+        System.out.println("...........................................................");
+        lf.printLinkedList(lf.removeduplicatesFromUnsortedLinkedList(llist.head));
     }
 }
