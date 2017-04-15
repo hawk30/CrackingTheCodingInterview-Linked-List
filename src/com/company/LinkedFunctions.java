@@ -99,33 +99,68 @@ public class LinkedFunctions {
         if (head == null)
             return head;
         Node lowerHead = null, lowertail = null, greaterHead = null, greaterTail = null;
-        Node temp=head;
-        while(temp!=null){
-            if(temp.data<=x){
-                if(lowerHead==null)
-                    lowerHead=temp;
-                if(lowertail==null)
-                    lowertail=temp;
+        Node temp = head;
+        while (temp != null) {
+            if (temp.data <= x) {
+                if (lowerHead == null)
+                    lowerHead = temp;
+                if (lowertail == null)
+                    lowertail = temp;
                 else
-                    lowertail=lowertail.next=temp;
+                    lowertail = lowertail.next = temp;
 
-            }else{
-                    if(greaterHead==null)
-                        greaterHead=temp;
-                    if(greaterTail==null)
-                        greaterTail=temp;
-                    else
-                        greaterTail=greaterTail.next=temp;
+            } else {
+                if (greaterHead == null)
+                    greaterHead = temp;
+                if (greaterTail == null)
+                    greaterTail = temp;
+                else
+                    greaterTail = greaterTail.next = temp;
             }
-            temp=temp.next;
+            temp = temp.next;
         }
-        if(greaterHead!=null)
-            greaterTail.next=null;
-        if(lowerHead==null){
+        if (greaterHead != null)
+            greaterTail.next = null;
+        if (lowerHead == null) {
             return greaterHead;
-        }else{
-            lowertail.next=greaterHead;
+        } else {
+            lowertail.next = greaterHead;
             return lowerHead;
         }
     }
+
+     Node addLists(Node l1, Node l2) {
+        return addLists(0, l1, l2);
+    }
+     Node addLists(int carryOver, Node l1, Node l2) {
+        Node l3=null;
+        // stop conditions
+        if (l1 == null && l2 == null && carryOver == 0) {
+            return null;
+        }
+        if (l1 == null) {
+            l1 = new Node(0);
+        }
+        if (l2 == null) {
+            l2 = new Node(0);
+        }
+
+        // iteration
+        int addedValue = l1.data + l2.data + carryOver;
+        carryOver = 0;
+
+        if (addedValue >= 10) {
+            addedValue -= 10;
+            carryOver = 1;
+        }
+
+        l3 = new Node(addedValue);
+
+        // recursion
+        l3.next = addLists(carryOver, l1.next, l2.next);
+
+        return l3;
+    }
+
+
 }
