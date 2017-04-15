@@ -48,51 +48,84 @@ public class LinkedFunctions {
         if (head == null)
             return head;
         Node prevNode;
-        Node currNode=head;
+        Node currNode = head;
         Node temp;
-        while (currNode!=null && currNode.next!=null){
-            prevNode=currNode;
-            while(prevNode.next!=null){
-                if(currNode.data==prevNode.next.data){
-                    temp=prevNode.next;
-                    prevNode.next=prevNode.next.next;
-                }else
-                    prevNode=prevNode.next;
+        while (currNode != null && currNode.next != null) {
+            prevNode = currNode;
+            while (prevNode.next != null) {
+                if (currNode.data == prevNode.next.data) {
+                    temp = prevNode.next;
+                    prevNode.next = prevNode.next.next;
+                } else
+                    prevNode = prevNode.next;
             }
-            currNode=currNode.next;
+            currNode = currNode.next;
         }
         return head;
     }
 
-    int findKthToLastElementLinkedList(Node head, int k){
-        if(head==null)
+    int findKthToLastElementLinkedList(Node head, int k) {
+        if (head == null)
             return -1;
-        Node ptr1=head, ptr2=head;
-        int count=1;
-        while(ptr1!=null && ptr1.next!=null && count<k){
+        Node ptr1 = head, ptr2 = head;
+        int count = 1;
+        while (ptr1 != null && ptr1.next != null && count < k) {
             count++;
-            ptr1=ptr1.next;
+            ptr1 = ptr1.next;
         }
-        while(ptr1.next!=null){
-            ptr1=ptr1.next;
-            ptr2=ptr2.next;
+        while (ptr1.next != null) {
+            ptr1 = ptr1.next;
+            ptr2 = ptr2.next;
         }
         return ptr2.data;
 
     }
 
-    Node deleteElementFromMiddleOfLinkedList(Node head){
-        if(head==null)
+    Node deleteElementFromMiddleOfLinkedList(Node head) {
+        if (head == null)
             return head;
-        Node ptr1=head,ptr2=head, prevNode=null;
-        while ( ptr1!=null && ptr1.next!=null){
-            ptr1=ptr1.next.next;
-            prevNode=ptr2;
-            ptr2=ptr2.next;
+        Node ptr1 = head, ptr2 = head, prevNode = null;
+        while (ptr1 != null && ptr1.next != null) {
+            ptr1 = ptr1.next.next;
+            prevNode = ptr2;
+            ptr2 = ptr2.next;
         }
-        prevNode.next=ptr2.next;
+        prevNode.next = ptr2.next;
         return head;
 
     }
 
+    Node partitionOfLinkedList(Node head, int x) {
+        if (head == null)
+            return head;
+        Node lowerHead = null, lowertail = null, greaterHead = null, greaterTail = null;
+        Node temp=head;
+        while(temp!=null){
+            if(temp.data<=x){
+                if(lowerHead==null)
+                    lowerHead=temp;
+                if(lowertail==null)
+                    lowertail=temp;
+                else
+                    lowertail=lowertail.next=temp;
+
+            }else{
+                    if(greaterHead==null)
+                        greaterHead=temp;
+                    if(greaterTail==null)
+                        greaterTail=temp;
+                    else
+                        greaterTail=greaterTail.next=temp;
+            }
+            temp=temp.next;
+        }
+        if(greaterHead!=null)
+            greaterTail.next=null;
+        if(lowerHead==null){
+            return greaterHead;
+        }else{
+            lowertail.next=greaterHead;
+            return lowerHead;
+        }
+    }
 }
