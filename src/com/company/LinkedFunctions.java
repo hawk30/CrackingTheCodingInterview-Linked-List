@@ -174,36 +174,91 @@ public class LinkedFunctions {
             slow = slow.next;
             fast = fast.next.next;
         }
-        if(loopExists){
-            slow=head;
-            while(slow!=head && slow!=null && fast!=null){
-                slow=slow.next;
-                head=head.next;
+        if (loopExists) {
+            slow = head;
+            while (slow != head && slow != null && fast != null) {
+                slow = slow.next;
+                head = head.next;
             }
             return slow;
         }
         return null;
     }
-    boolean linkedListIsPalindrome(Node head){
-        if(head==null)
+
+    boolean linkedListIsPalindrome(Node head) {
+        if (head == null)
             return false;
-        Stack<Node> sk= new Stack<>();
-        Node temp=head;
-        while(temp!=null){
+        Stack<Node> sk = new Stack<>();
+        Node temp = head;
+        while (temp != null) {
             sk.push(temp);
-            temp=temp.next;
+            temp = temp.next;
         }
-        temp=head;
-       while(!sk.isEmpty() && temp!=null){
-           if(temp.data==sk.peek().data) {
-               sk.pop();
-           }
-           temp=temp.next;
-       }
-       if(sk.isEmpty())
-           return true;
-       else
-           return false;
+        temp = head;
+        while (!sk.isEmpty() && temp != null) {
+            if (temp.data == sk.peek().data) {
+                sk.pop();
+            }
+            temp = temp.next;
+        }
+        if (sk.isEmpty())
+            return true;
+        else
+            return false;
 
     }
+
+    boolean LinkedListPalindromeWithoutAddnSpace(Node head) {
+        if (head == null)
+            return false;
+        Node slowPtr = head, fastPtr = head, middleNode = null, prevToSlowptr = null;
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            prevToSlowptr = slowPtr;
+            slowPtr = slowPtr.next;
+        }
+        if (fastPtr != null) {//in case of odd list
+            middleNode=slowPtr;
+            slowPtr=slowPtr.next;
+     }
+     Node secondhalf=slowPtr;
+         prevToSlowptr.next=null;
+         Node reverseLL=reverse(secondhalf);
+         boolean res=compare(head,reverseLL);
+        reverseLL=reverse(secondhalf);
+         if(middleNode!=null){
+             prevToSlowptr.next=middleNode;
+             middleNode.next=reverseLL;
+         }else
+             prevToSlowptr.next=reverseLL;
+         return res;
+
+    }
+
+    Node reverse(Node secondHalf) {
+        Node prevNode = null, currNode = secondHalf, nextNode = null;
+        while (currNode != null) {
+            nextNode = currNode.next;
+            currNode.next = prevNode;
+            prevNode = currNode;
+            currNode = nextNode;
+        }
+        secondHalf = prevNode;
+        return secondHalf;
+    }
+
+    boolean compare(Node head, Node secondhalf) {
+        Node temp1 = head, temp2 = secondhalf;
+        while (temp1 != null && temp2 != null) {
+                if(temp1.data!=temp2.data)
+                    return false;
+                else{
+                    temp1=temp1.next;
+                    temp2=temp2.next;
+                }
+        }
+
+        return true;
+    }
 }
+
