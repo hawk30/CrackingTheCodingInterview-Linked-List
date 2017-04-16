@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * Created by gaurav on 11/4/17.
@@ -129,11 +130,12 @@ public class LinkedFunctions {
         }
     }
 
-     Node addLists(Node l1, Node l2) {
+    Node addLists(Node l1, Node l2) {
         return addLists(0, l1, l2);
     }
-     Node addLists(int carryOver, Node l1, Node l2) {
-        Node l3=null;
+
+    Node addLists(int carryOver, Node l1, Node l2) {
+        Node l3 = null;
         // stop conditions
         if (l1 == null && l2 == null && carryOver == 0) {
             return null;
@@ -158,9 +160,50 @@ public class LinkedFunctions {
 
         // recursion
         l3.next = addLists(carryOver, l1.next, l2.next);
-
         return l3;
     }
 
+    Node circularLinkedListHead(Node head) {
+        if (head == null)
+            return head;
+        Node slow = head, fast = head.next;
+        boolean loopExists = false;
+        if (slow == fast)
+            loopExists = true;
+        else {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if(loopExists){
+            slow=head;
+            while(slow!=head && slow!=null && fast!=null){
+                slow=slow.next;
+                head=head.next;
+            }
+            return slow;
+        }
+        return null;
+    }
+    boolean linkedListIsPalindrome(Node head){
+        if(head==null)
+            return false;
+        Stack<Node> sk= new Stack<>();
+        Node temp=head;
+        while(temp!=null){
+            sk.push(temp);
+            temp=temp.next;
+        }
+        temp=head;
+       while(!sk.isEmpty() && temp!=null){
+           if(temp.data==sk.peek().data) {
+               sk.pop();
+           }
+           temp=temp.next;
+       }
+       if(sk.isEmpty())
+           return true;
+       else
+           return false;
 
+    }
 }
